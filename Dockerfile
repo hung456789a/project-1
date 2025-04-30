@@ -7,4 +7,4 @@ FROM openjdk:17-jdk
 EXPOSE 8080
 COPY --from=maven_tool /tmp/target/*.jar /app/spring-boot-application.jar
 WORKDIR /app
-ENTRYPOINT [ "jar", "-jar", "/app/spring-boot-application.jar" ]
+ENTRYPOINT [ "java", "-jar", "/app/spring-boot-application.jar" ]
