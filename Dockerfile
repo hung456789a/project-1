@@ -6,7 +6,7 @@ COPY mvnw /tmp/
 COPY mvnw.cmd /tmp/
 RUN mkdir -p /tmp/.mvn/wrapper/
 RUN chmod +x mvnw
-RUN ./mvnw clean package
+RUN mvn -B clean package
 FROM openjdk:8-jre-alpine
 COPY --from=maven /tmp/target/*.jar /app/spring-boot-application.jar
 WORKDIR /app
