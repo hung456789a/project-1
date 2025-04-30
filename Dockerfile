@@ -5,7 +5,7 @@ COPY src /tmp/src/
 COPY mvnw /tmp/
 COPY mvnw.cmd /tmp/
 RUN mvn -B clean package
-FROM openjdk:8-jre-alpine
+FROM openjdk:19-jdk-alpine
 COPY --from=maven /tmp/target/*.jar /app/spring-boot-application.jar
 WORKDIR /app
 ENTRYPOINT [ "jar", "-jar", "spring-boot-application.jar" ]
