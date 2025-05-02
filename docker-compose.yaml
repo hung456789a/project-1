@@ -4,4 +4,10 @@ services:
     hostname: "maventest"
     build: .
     ports:
-      - "5000:8080"
+      - "8080:8080"
+  logstash:
+    build:
+
+networks:
+  elk:
+    driver: bridge
