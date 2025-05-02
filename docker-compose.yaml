@@ -6,7 +6,14 @@ services:
     ports:
       - "8080:8080"
   logstash:
-    build:
+    image: docker.elastic.co/logstash/logstash:7.17.0
+    container_name: logstash
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./logstash/pipeline:/usr/share/logstash/pipeline
+    networks:
+      - elk
 
 networks:
   elk:
