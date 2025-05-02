@@ -1,0 +1,7 @@
+services:
+  maventest:
+    container_name: "maventest"
+    hostname: "maventest"
+    build: .
+    ports:
+      - "5000:8080"
