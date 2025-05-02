@@ -15,6 +15,6 @@ public class DemoApplication {
 
     @GetMapping("/")
     public String hello() {
-        return "Hello Spring Boot!";
+        return "Hello Spring Boot! HEHE";
     }
 }
