@@ -1,6 +1,6 @@
 services:
   maventest:
-    container_name: "maventest"
+    container_name: "maventest-1"
     hostname: "maventest"
     build: .
     ports:
