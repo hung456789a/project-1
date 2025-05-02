@@ -1,7 +1,7 @@
 services:
   maventest:
     container_name: "maventest-1"
-    hostname: "maventest"
+    hostname: "maventest-1"
     build: .
     ports:
       - "8080:8080"
