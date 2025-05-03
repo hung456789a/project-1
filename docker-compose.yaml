@@ -10,22 +10,17 @@ services:
     networks:
       - elk
   logstash:
-    image: docker.elastic.co/logstash/logstash:7.17.0
+    image: ./logstash/.
     container_name: logstash
     ports:
       - "5044:5044"
-    volumes:
-      - ./logstash/pipeline:/usr/share/logstash/pipeline
     networks:
       - elk
 
 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:9.0.0
+    build: ./elasticsearch/.
     container_name: elasticsearch
-    environment:
-      - discovery.type=single-node
-      - xpack.security.enabled=false
     ports:
       - "9200:9200"
       - "9300:9300"
@@ -34,12 +29,9 @@ services:
 
 
   kibana:
-    image: docker.elastic.co/kibana/kibana:9.0.0
-    container_name: kibana
+    build: ./kibana/.
     ports:
       - "5601:5601"
-    environment:
-      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
     depends_on:
       - elasticsearch
     networks:
