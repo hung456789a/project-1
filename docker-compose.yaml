@@ -33,9 +33,9 @@ services:
     container_name: filebeat
     volumes:
       -$(pwd)/filebeat/filebeat.docker.yml:/usr/share/filebeat/filebeat.yml
-      -/var/lib/docker/containers:/var/lib/docker/containers
-      -/var/run/docker.sock:/var/run/docker.sock
-      -/filebeat/registry:/usr/share/filebeat/data/
+      #-/var/lib/docker/containers:/var/lib/docker/containers
+      #-/var/run/docker.sock:/var/run/docker.sock
+      #-/filebeat/registry:/usr/share/filebeat/data/
 
   kibana:
     build: ./kibana/
