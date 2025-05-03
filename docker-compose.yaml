@@ -10,7 +10,9 @@ services:
     networks:
       - elk
   logstash:
-    image: ./logstash/
+    build:
+      context: ./logstash
+      dockerfile: Dockerfile
     container_name: logstash
     ports:
       - "5044:5044"
