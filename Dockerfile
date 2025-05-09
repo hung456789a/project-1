@@ -8,5 +8,5 @@ RUN mvn clean package -DskipTests
 FROM openjdk:17-jdk
 WORKDIR /app
 EXPOSE 8080
-COPY --from=build /app/target/*.jar app.jar
-CMD ["java", "-jar", "app.jar"]
+COPY --from=build /app/target/*.jar /app/app.jar
+CMD ["java", "-jar", "/app/app.jar"]
