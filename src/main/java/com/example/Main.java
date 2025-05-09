@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        String uri = "mongodb://localhost:27017"; // Thay bằng URI của bạn nếu dùng MongoDB Atlas
+        String uri = System.getenv().getOrDefault("MONGO_URI", "mongodb://localhost:27017"); // Thay bằng URI của bạn nếu dùng MongoDB Atlas
         String dbName = "testdb";
         String collectionName = "users";
 
