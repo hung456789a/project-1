@@ -1,51 +1,22 @@
+version: '3.8'
+
 services:
-  maventest:
-    container_name: "maventest-1"
-    hostname: "maventest-1"
+  mongo:
+    image: mongo:6.0
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  app:
     build: .
-    ports:
-      - "8080:8080"
+    container_name: java-mongo-app
     depends_on:
-      - logstash
-    networks:
-      - elk
-  logstash:
-    build:
-      context: ./logstash
-      dockerfile: Dockerfile
-    container_name: logstash
-    ports:
-      - "5044:5044"
-    networks:
-      - elk
+      - mongo
+    environment:
+      - MONGO_URI=mongodb://mongo:27017
+    command: ["java", "-jar", "app.jar"]
 
-
-  elasticsearch:
-    build: ./elasticsearch/
-    container_name: elasticsearch
-    ports:
-      - "9200:9200"
-      - "9300:9300"
-    networks:
-      - elk
-  # filebeat:
-  #   build: ./filebeat/
-  #   container_name: filebeat
-  #   volumes:
-  #     -./filebeat/filebeat.docker.yml:/usr/share/filebeat/filebeat.yml
-  #     -/var/lib/docker/containers:/var/lib/docker/containers
-  #     -/var/run/docker.sock:/var/run/docker.sock
-  #     -/filebeat/registry:/usr/share/filebeat/data/
-
-  kibana:
-    build: ./kibana/
-    ports:
-      - "5601:5601"
-    depends_on:
-      - elasticsearch
-    networks:
-      - elk
-
-networks:
-  elk:
-    driver: bridge
+volumes:
+  mongo-data:

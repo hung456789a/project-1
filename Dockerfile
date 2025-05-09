@@ -1,10 +1,11 @@
-FROM maven:3.6-openjdk-17 AS maven_tool
-WORKDIR /tmp/
-COPY pom.xml /tmp/
-COPY src /tmp/src/
-RUN mvn -B clean package
-FROM openjdk:17-jdk
-EXPOSE 8080
-COPY --from=maven_tool /tmp/target/*.jar /app/spring-boot-application.jar
+# Dùng image Maven để build project
+FROM maven:3.9.4-eclipse-temurin-17 AS build
 WORKDIR /app
-ENTRYPOINT [ "java", "-jar", "/app/spring-boot-application.jar" ]
+COPY . .
+RUN mvn clean package -DskipTests
+
+# Dùng image nhẹ để chạy JAR
+FROM eclipse-temurin:17-jre
+WORKDIR /app
+COPY --from=build /app/target/mongodb-sample-1.0-SNAPSHOT.jar app.jar
+CMD ["java", "-jar", "app.jar"]
